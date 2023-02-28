@@ -476,43 +476,33 @@ windows::devices::uwb::ddi::lrp::From(const UwbNotificationData &uwbNotification
         { std::type_index(typeid(UwbRangingData)), UWB_NOTIFICATION_TYPE_RANGING_DATA },
     };
 
-    // The total size required must be calculated, which includes the size of
-    // all the non-discriminated strcuture members plus the size of the
-    // discriminated type within the union. Taking the sum of each individual
-    // member is error-prone because 1) if the structure is ever updated, this
-    // code will break, and 2) such a calculation would not include compiler
-    // added padding for alignment. Conseauently, we take the size of the entire
-    // structure here, which will include the size of the largest union member,
-    // resulting in an overestimate. While this wastes some memory, it provides
-    // a strong guarantee that enough memory will be allocated, avoiding the
-    // possibility of buffer overrun and heap corruption.
-    std::size_t totalSize = sizeof(UWB_NOTIFICATION_DATA);
+    std::size_t totalSize = 0;
     std::unique_ptr<UwbNotificationDataWrapper> notificationDataWrapper;
 
     std::visit([&](auto &&arg) {
         using ValueType = std::decay_t<decltype(arg)>;
 
         if constexpr (std::is_same_v<ValueType, UwbStatus>) {
-            totalSize += sizeof(UWB_NOTIFICATION_DATA::genericError);
+            totalSize = offsetof(UWB_NOTIFICATION_DATA, genericError) + sizeof(UWB_NOTIFICATION_DATA::genericError);
             notificationDataWrapper = std::make_unique<UwbNotificationDataWrapper>(totalSize);
             UWB_NOTIFICATION_DATA &notificationData = notificationDataWrapper->value();
             notificationData.notificationType = NotificationTypeMap.at(typeid(arg));
             notificationData.genericError = From(arg);
         } else if constexpr (std::is_same_v<ValueType, UwbStatusDevice>) {
-            totalSize += sizeof(UWB_NOTIFICATION_DATA::deviceStatus);
+            totalSize = offsetof(UWB_NOTIFICATION_DATA, deviceStatus) +  sizeof(UWB_NOTIFICATION_DATA::deviceStatus);
             notificationDataWrapper = std::make_unique<UwbNotificationDataWrapper>(totalSize);
             UWB_NOTIFICATION_DATA &notificationData = notificationDataWrapper->value();
             notificationData.notificationType = NotificationTypeMap.at(typeid(arg));
             notificationData.deviceStatus = From(arg);
         } else if constexpr (std::is_same_v<ValueType, UwbSessionStatus>) {
-            totalSize += sizeof(UWB_NOTIFICATION_DATA::sessionStatus);
+            totalSize = offsetof(UWB_NOTIFICATION_DATA, sessionStatus) + sizeof(UWB_NOTIFICATION_DATA::sessionStatus);
             notificationDataWrapper = std::make_unique<UwbNotificationDataWrapper>(totalSize);
             UWB_NOTIFICATION_DATA &notificationData = notificationDataWrapper->value();
             notificationData.notificationType = NotificationTypeMap.at(typeid(arg));
             notificationData.sessionStatus = From(arg);
         } else if constexpr (std::is_same_v<ValueType, UwbSessionUpdateMulicastListStatus>) {
             auto uwbSessionUpdateMulicastListStatusWrapper = From(arg);
-            totalSize += std::size(uwbSessionUpdateMulicastListStatusWrapper);
+            totalSize = offsetof(UWB_NOTIFICATION_DATA, sessionUpdateControllerMulticastList) + std::size(uwbSessionUpdateMulicastListStatusWrapper);
             notificationDataWrapper = std::make_unique<UwbNotificationDataWrapper>(totalSize);
             UWB_NOTIFICATION_DATA &notificationData = notificationDataWrapper->value();
             notificationData.notificationType = NotificationTypeMap.at(typeid(arg));
@@ -520,7 +510,7 @@ windows::devices::uwb::ddi::lrp::From(const UwbNotificationData &uwbNotification
             std::memcpy(&notificationData.sessionUpdateControllerMulticastList, std::data(data), std::size(data));
         } else if constexpr (std::is_same_v<ValueType, UwbRangingData>) {
             auto uwbRangingDataWrapper = From(arg);
-            totalSize += std::size(uwbRangingDataWrapper);
+            totalSize = offsetof(UWB_NOTIFICATION_DATA, rangingData) + std::size(uwbRangingDataWrapper);
             notificationDataWrapper = std::make_unique<UwbNotificationDataWrapper>(totalSize);
             UWB_NOTIFICATION_DATA &notificationData = notificationDataWrapper->value();
             notificationData.notificationType = NotificationTypeMap.at(typeid(arg));
