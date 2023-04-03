@@ -7,7 +7,7 @@ As described in the main project [`README`](/README.md), a C++ 20 compiler and C
 
 ## 1. Install the tools
 
-Download the latest version of [Visual Studio 2022 Build Tools](https://visualstudio.microsoft.com/downloads/#build-tools-for-visual-studio-2022) or [the full Visual Studio IDE](https://visualstudio.microsoft.com/) and run the installer. Select the 'Individual Components' tab at the top, and select the following required components:
+Download the latest version of [Visual Studio 2022 Build Tools](https://visualstudio.microsoft.com/downloads/#build-tools-for-visual-studio-2022) or [the full Visual Studio IDE](https://visualstudio.microsoft.com/) and run the installer. Under 'Workloads', select 'Desktop development with C++' and 'Universal Windows Platform Development'. The,  under 'Installation details' in the side panel, select 'C++ (v143) Universal Windows Platform tool'. Last, select the 'Individual Components' tab at the top, and select the following required components:
 
 * C++ CMake tools for Windows
 * MSVC v143 - VS 2022 C++ x64/x86 build tools (Latest)
@@ -29,14 +29,10 @@ The following components are optional, but strongly recommended for a more compl
 * C++ Clang Compiler for Windows (15.0.1)
 * C++ Clang-cl for v143 build tools (x64/x86)
 
-The final list with all optional components would look like this:
-
-![Visual Studio 2022 Build Tools Components List](/assets/vsbuildtools_finallist.png)
-
 Once installed, the project can be built using CMake as described in the main [`README`](/README.md#cmake).
 
 ## 2. Configure Commit signing (optional)
- 
+
 Prior to following the generic instructions for configuring a git signing key [here](/README.md#commit-signing), the gpg tools must be installed:
 
 1. Download the latest version of gpg4win from [https://www.gpg4win.org/](https://www.gpg4win.org/).
