@@ -10,7 +10,7 @@
     <MinimalCoreWin>true</MinimalCoreWin>
     <ProjectGuid>{73e23718-744b-40dd-9e33-6923ca06b707}</ProjectGuid>
     <ProjectName>Windows.Devices.NearObject.Service.Lib</ProjectName>
-    <RootNamespace>Windows.Devices.NearObject.Service.Lib</RootNamespace>
+    <RootNamespace>Windows.Devices.NearObject.Service</RootNamespace>
     <DefaultLanguage>en-US</DefaultLanguage>
     <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
     <AppContainerApplication>true</AppContainerApplication>
