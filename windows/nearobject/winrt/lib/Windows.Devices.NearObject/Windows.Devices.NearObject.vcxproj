@@ -8,9 +8,9 @@
     <CppWinRTParameters>
     </CppWinRTParameters>
     <MinimalCoreWin>true</MinimalCoreWin>
-    <ProjectGuid>{73e23718-744b-40dd-9e33-6923ca06b707}</ProjectGuid>
-    <ProjectName>Windows.Devices.NearObject.Service.Lib</ProjectName>
-    <RootNamespace>Windows.Devices.NearObject.Service</RootNamespace>
+    <ProjectGuid>{d80b9a4f-d2f5-4f41-9935-7e9c26839a8a}</ProjectGuid>
+    <ProjectName>Windows.Devices.NearObject</ProjectName>
+    <RootNamespace>Windows.Devices.NearObject</RootNamespace>
     <DefaultLanguage>en-US</DefaultLanguage>
     <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
     <AppContainerApplication>true</AppContainerApplication>
@@ -99,7 +99,7 @@
   <PropertyGroup />
   <ItemDefinitionGroup>
     <ClCompile>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
       <WarningLevel>Level4</WarningLevel>
@@ -110,7 +110,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
-      <ModuleDefinitionFile>Windows_Devices_NearObject_Service_Lib.def</ModuleDefinitionFile>
+      <ModuleDefinitionFile>Windows_Devices_NearObject.def</ModuleDefinitionFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug'">
@@ -132,8 +132,29 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="NearObject.h">
+      <DependentUpon>NearObject.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="NearObjectSession.h">
+      <DependentUpon>NearObjectSession.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="pch.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="NearObject.cpp">
+      <DependentUpon>NearObject.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="NearObjectSession.cpp">
+      <DependentUpon>NearObjectSession.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <PrecompiledHeader>Create</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
-    <ClCompile Include="NearObjectService.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -143,12 +164,12 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\idl\Windows.Devices.NearObject.Service\Windows.Devices.NearObject.Service.vcxproj">
-      <Project>{cf41f281-d4a0-466e-aaa9-e5b63a578f30}</Project>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="NearObjectService.h" />
+    <Midl Include="NearObject.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="NearObjectSession.idl">
+      <SubType>Designer</SubType>
+    </Midl>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

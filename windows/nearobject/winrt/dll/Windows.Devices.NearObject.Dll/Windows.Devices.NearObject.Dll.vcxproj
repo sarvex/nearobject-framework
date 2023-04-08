@@ -5,11 +5,9 @@
     <CppWinRTOptimized>true</CppWinRTOptimized>
     <CppWinRTRootNamespaceAutoMerge>true</CppWinRTRootNamespaceAutoMerge>
     <CppWinRTGenerateWindowsMetadata>true</CppWinRTGenerateWindowsMetadata>
-    <CppWinRTParameters>
-    </CppWinRTParameters>
     <MinimalCoreWin>true</MinimalCoreWin>
-    <ProjectGuid>{f69a5020-cfee-488d-882e-9c5a5f124833}</ProjectGuid>
-    <ProjectName>Windows.Devices.NearObject.Lib</ProjectName>
+    <ProjectGuid>{ee1d212c-47cd-414f-8cc2-19bcc276b754}</ProjectGuid>
+    <ProjectName>Windows.Devices.NearObject.Dll</ProjectName>
     <RootNamespace>Windows.Devices.NearObject</RootNamespace>
     <DefaultLanguage>en-US</DefaultLanguage>
     <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
@@ -17,7 +15,7 @@
     <ApplicationType>Windows Store</ApplicationType>
     <ApplicationTypeRevision>10.0</ApplicationTypeRevision>
     <WindowsTargetPlatformVersion Condition=" '$(WindowsTargetPlatformVersion)' == '' ">10.0.22621.0</WindowsTargetPlatformVersion>
-    <WindowsTargetPlatformMinVersion>10.0.22621.0</WindowsTargetPlatformMinVersion>
+    <WindowsTargetPlatformMinVersion>10.0.17134.0</WindowsTargetPlatformMinVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <ItemGroup Label="ProjectConfigurations">
@@ -55,7 +53,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <PlatformToolset>v143</PlatformToolset>
     <PlatformToolset Condition="'$(VisualStudioVersion)' == '16.0'">v142</PlatformToolset>
     <PlatformToolset Condition="'$(VisualStudioVersion)' == '15.0'">v141</PlatformToolset>
@@ -72,18 +70,6 @@
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
-  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
-    <DesktopCompatible>true</DesktopCompatible>
-  </PropertyGroup>
-  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
-    <DesktopCompatible>true</DesktopCompatible>
-  </PropertyGroup>
-  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <DesktopCompatible>true</DesktopCompatible>
-  </PropertyGroup>
-  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <DesktopCompatible>true</DesktopCompatible>
-  </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
@@ -96,21 +82,32 @@
     <Import Project="PropertySheet.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <TargetName>Windows.Devices.NearObject</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
+    <TargetName>Windows.Devices.NearObject</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <TargetName>Windows.Devices.NearObject</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <TargetName>Windows.Devices.NearObject</TargetName>
+  </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
       <WarningLevel>Level4</WarningLevel>
       <AdditionalOptions>%(AdditionalOptions) /bigobj</AdditionalOptions>
-      <PreprocessorDefinitions>WIN32_LEAN_AND_MEAN;WINRT_LEAN_AND_MEAN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_WINRT_DLL;WIN32_LEAN_AND_MEAN;WINRT_LEAN_AND_MEAN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalUsingDirectories>$(WindowsSDK_WindowsMetadata);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
-      <ModuleDefinitionFile>Windows_Devices_NearObject_Lib.def</ModuleDefinitionFile>
+      <ModuleDefinitionFile>Windows.Devices.NearObject.def</ModuleDefinitionFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug'">
@@ -132,24 +129,28 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="NearObject.h" />
-    <ClInclude Include="NearObjectSession.h" />
+    <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="NearObject.cpp" />
-    <ClCompile Include="NearObjectSession.cpp" />
+    <ClCompile Include="Dll.cpp" />
+    <ClCompile Include="pch.cpp">
+      <PrecompiledHeader>Create</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Windows.Devices.NearObject.def" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="PropertySheet.props" />
     <Text Include="readme.txt">
       <DeploymentContent>false</DeploymentContent>
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\idl\Windows.Devices.NearObject\Windows.Devices.NearObject.vcxproj">
-      <Project>{5ccc6e71-34bd-4bd1-bdca-2fb78d25ae5a}</Project>
+    <ProjectReference Include="..\..\lib\Windows.Devices.NearObject\Windows.Devices.NearObject.vcxproj">
+      <Project>{d80b9a4f-d2f5-4f41-9935-7e9c26839a8a}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -1,5 +1,5 @@
 ========================================================================
-    C++/WinRT Windows.Devices.NearObject.Lib Project Overview
+    C++/WinRT Windows.Devices.NearObject.System Project Overview
 ========================================================================
 
 This project demonstrates how to get started authoring Windows Runtime 
@@ -12,13 +12,13 @@ To be able to instantiate types from the static library you need to
 update the activation factory in the consuming binary to call the 
 activation factory exposed by this static library using code similar to:
 
-void* __stdcall Windows.Devices.NearObject.Lib_get_activation_factory(
+void* __stdcall Windows.Devices.NearObject.System_get_activation_factory(
     std::wstring_view const& name);
 
 void* __stdcall winrt_get_activation_factory(
     std::wstring_view const& name)
 {
-    void* factory = Windows.Devices.NearObject.Lib_get_activation_factory(name);
+    void* factory = Windows.Devices.NearObject.System_get_activation_factory(name);
     if (factory)
     {
         return factory;
