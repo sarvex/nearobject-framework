@@ -6,9 +6,9 @@
     <CppWinRTRootNamespaceAutoMerge>true</CppWinRTRootNamespaceAutoMerge>
     <CppWinRTGenerateWindowsMetadata>true</CppWinRTGenerateWindowsMetadata>
     <MinimalCoreWin>true</MinimalCoreWin>
-    <ProjectGuid>{5ccc6e71-34bd-4bd1-bdca-2fb78d25ae5a}</ProjectGuid>
-    <ProjectName>Windows.Devices.NearObject</ProjectName>
-    <RootNamespace>Windows.Devices.NearObject</RootNamespace>
+    <ProjectGuid>{cf41f281-d4a0-466e-aaa9-e5b63a578f30}</ProjectGuid>
+    <ProjectName>Windows.Devices.NearObject.Service</ProjectName>
+    <RootNamespace>Windows.Devices.NearObject.Service</RootNamespace>
     <DefaultLanguage>en-US</DefaultLanguage>
     <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
     <AppContainerApplication>true</AppContainerApplication>
@@ -86,7 +86,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
-      <ModuleDefinitionFile>Windows_Devices_NearObject.def</ModuleDefinitionFile>
+      <ModuleDefinitionFile>Windows_Devices_NearObject_Service.def</ModuleDefinitionFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug'">
@@ -106,6 +106,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="packages.config" />
     <None Include="PropertySheet.props" />
     <Text Include="readme.txt">
@@ -113,11 +116,7 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <Midl Include="NearObject.idl" />
-    <Midl Include="NearObjectSession.idl" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Generated Files\module.g.cpp" />
+    <Midl Include="NearObjectService.idl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
