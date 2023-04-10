@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0">
+	<!--<file name="Windows.Devices.NearObject.Service.app.exe">
+		<activatableClass 
+			name="Windows.Devices.NearObject.System.NearObjectService"
+			threadingModel="both"
+			xmlns="urn:schemas-microsoft-com:winrt.v1" />
+	</file>-->
+	<file name="Windows.Devices.NearObject.Service.app.exe">
+		<activatableClass
+			name="NearObject.Class"
+			threadingModel="both"
+			xmlns="urn:schemas-microsoft-com:winrt.v1" />
+	</file>
+</assembly>

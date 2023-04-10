@@ -5,5 +5,7 @@ namespace Windows.Devices.NearObject
     runtimeclass NearObjectSession 
     {
         NearObjectSession();
+
+        UInt32 Id;
     }
 }

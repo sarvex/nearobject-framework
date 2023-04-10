@@ -7,6 +7,11 @@ namespace winrt::Windows::Devices::NearObject::System::implementation
     {
         NearObjectService() = default;
 
+        hstring Name();
+        void Name(hstring const& value);
+
+    private:
+        winrt::hstring m_name{ L"NearObjectService" };
     };
 }
 namespace winrt::Windows::Devices::NearObject::System::factory_implementation
